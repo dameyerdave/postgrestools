@@ -5,7 +5,7 @@ DB=$1
 WD=$(pwd)
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-BU_DIR="${WD}/${DB}/$(date +%Y%m%d%H%M%S)"
+BU_DIR="${WD}/${DB}/$(date +%Y-%m-%d_%H-%M-%S)"
 mkdir -p ${BU_DIR}
-psql postgres -d ${DB} -f ${DIR}/ptsqldump.sql
-psql postgres -d ${DB} -c "SELECT db_to_csv('${BU_DIR}')"
+psql postgres -d ${DB} "$@" -f ${DIR}/ptsqldump.sql
+psql postgres -d ${DB} "$@" -c "SELECT db_to_csv('${BU_DIR}')"

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+DB=$1
+
+WD=$(pwd)
+DF="${DB}_$(date "+%Y-%m-%d_%H-%M-%S").dump"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+pg_dumpall --roles-only > roles.sql
+pg_dump -d ${DB} -F -c > ${WD}/${DF}
